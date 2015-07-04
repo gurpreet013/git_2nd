@@ -1,0 +1,166 @@
+1.Create a repository and push to github.
+
+2.Create two files in master branch, then create a tag 1.0.0 for first release from master.
+COMMAND	
+	git status
+OUTPUT
+	On branch master
+	Initial commit
+
+	Untracked files:
+  	(use "git add <file>..." to include in what will be committed)
+
+		file1.txt
+		file2.txt
+
+	nothing added to commit but untracked files present (use "git add" to track)
+
+COMMAND	
+	git add file1.txt
+	git commit -m "add file1"
+
+OUTPUT
+	[master (root-commit) 7cd535e] add file1
+	 1 file changed, 0 insertions(+), 0 deletions(-)
+	 create mode 100644 file1.txt
+
+COMMAND	
+	git add file2.txt
+	git commit -m "add file2"
+
+OUTPUT
+	[master b8b0045] add file2
+	 1 file changed, 0 insertions(+), 0 deletions(-)
+	 create mode 100644 file2.txt
+
+COMMAND	
+	git tag -a "1.0.0" -m "two text files file1,file2 are created in master branch"
+
+
+ 3. Now, perform some changes in previous files and create another tag 1.0.1.
+
+COMMAND	
+	vi file1.txt
+	vi file2.txt
+	git add file1.txt
+	git add file2.txt
+	git commit -m "modify file1,file2"
+OUTPUT
+	[master 0bf986e] modify file1,file2
+ 	2 files changed, 2 insertions(+)
+
+COMMAND	
+	git tag -a 1.0.1 -m "some changes are done in text files file1,file2 (1 line added in both files)"
+
+
+4. Now, create another file file3 and create a tag 1.1.0.
+
+COMMAND	
+	git add file3.txt
+	git commit -m "add file3"
+
+OUTPUT
+	[master 614d325] add file3
+	 1 file changed, 0 insertions(+), 0 deletions(-)
+	 create mode 100644 file3.txt
+
+COMMAND	
+	git tag -a 1.1.0 -m "add new text file file3 "
+
+
+5. Now in 1.0.1 release, do some changes in existing files and create another tag 1.0.2.
+
+COMMAND
+ 	git checkout 1.0.1
+
+OUTPUT
+	Note: checking out '1.0.1'.
+
+	You are in 'detached HEAD' state. You can look around, make experimental
+	changes and commit them, and you can discard any commits you make in this
+	state without impacting any branches by performing another checkout.
+
+	If you want to create a new branch to retain commits you create, you may
+	do so (now or later) by using -b with the checkout command again. Example:
+
+	git checkout -b new_branch_name
+
+	HEAD is now at b8b0045... add file2
+
+COMMAND	
+	
+	vi file1.txt
+	vi file2.txt
+	git status
+
+OUTPUT
+	HEAD detached from 1.0.1
+	Changes not staged for commit:
+	  (use "git add <file>..." to update what will be committed)
+	  (use "git checkout -- <file>..." to discard changes in working directory)
+
+		modified:   file1.txt
+		modified:   file2.txt
+
+COMMAND	
+	git add file1.txt
+	git add file2.txt
+	git commit -m "add new change file1,file2"
+
+OUTPUT
+	[detached HEAD e6a940d] add new change file1,file2
+	 Date: Sat Jul 4 17:35:52 2015 +0530
+	 2 files changed, 6 insertions(+)
+	
+
+COMMAND	
+	git tag -a "1.0.2" -m "some changes done in file1,file2 (2nd line added)"
+
+
+6.Also do some changes in release 1.1.0, create a tag for next release 1.1.1.
+
+COMMAND	
+	git checkout master
+
+OUTPUT
+	Previous HEAD position was e6a940d... add new change file1,file2
+	Switched to branch 'master'
+
+COMMAND	
+	vi file3.txt
+	git add file3.txt
+	git commit -m "modify file3"
+
+OUTPUT
+	[master 5177033] modify file3
+	 1 file changed, 1 insertion(+)
+
+COMMAND	
+	git tag -a "1.1.1" -m "some modification done in file3 "
+
+
+
+	add git_2nd_excercise.txt
+	git commit -m "git 2nd excercise Submit"
+
+Output
+	[master 002de0a] git 2nd excecise Submit
+ 	1 file changed, 141 insertions(+)
+ 	create mode 100644 git_2nd_excercise.txt
+	
+
+COMMAND
+	git log --pretty="oneline" --dec --all --graph
+
+OUTPUT
+	
+	* 002de0aeaa8f5e10ac581762cf69786afbdbe580 (HEAD, master) git 2nd excecise Submit
+	* 51770335258881d9a29e60e52957828139612b28 (tag: 1.1.1) modify file3
+	* 614d325d2870b75cc107870a90bb3ebdd9a31193 (tag: 1.1.0) add file3
+	| * e6a940da4d4b0ed7f764a7bb17bcc36fb18f3b31 (tag: 1.0.2) add new change file1,file2
+	|/  
+	* 0bf986e6cdd005814b9f8715d8618be64c774f5d (tag: 1.0.1) modify file1,file2
+	* b8b004526b1001f1cec5d2880e2545600ff09d31 (tag: 1.0.0) add file2
+	* 7cd535ed17e795e50f3b4155022697fedd10b948 add file1
+
+
